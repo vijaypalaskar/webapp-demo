@@ -1,0 +1,21 @@
+<div class="container">
+    <div> <button mat-raised-button color="primary" (click)="openAddOrderDialog()">Add Order</button></div>
+    <mat-grid-list cols="3" rowHeight="2:1">
+        <mat-grid-tile *ngFor="let order of ordersList">
+            <div>
+              Name: {{order.firstName}} {{order.lastName}}
+              <div>Email: {{order.email}}</div>
+              <div>Mobile No: {{order.phoneNumber}}</div>
+              <div>Address: {{order.address.streetAddress +", "+ order.address.city}}</div>
+              Amount: {{order.amount}}
+              <div>
+                Order Details:
+                <div *ngFor="let product of order.orderDetails">
+                      Product name: {{product.productName}}
+                      Quantity: {{product.quantity}}
+                </div>
+              </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

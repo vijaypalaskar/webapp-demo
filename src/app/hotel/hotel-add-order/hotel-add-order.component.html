@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Add Order</h2>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="addOrderForm" (ngSubmit)="submitAddOrder()">
+        <div>
+            <mat-form-field appearance="standard">
+              <mat-label>First name</mat-label>
+              <input matInput placeholder="Enter First name*" formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Last name</mat-label>
+                <input matInput placeholder="Enter Last name*" formControlName="lastName">
+              </mat-form-field>
+            </div>
+        <div>
+            <mat-form-field appearance="standard">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Enter Email*" formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Mobile No</mat-label>
+                <input matInput placeholder="Enter Mobile no*" formControlName="mobileNo">
+              </mat-form-field>
+            </div>
+        <div>
+            <mat-form-field appearance="standard">
+              <mat-label>Address</mat-label>
+              <input matInput placeholder="Enter Address*" formControlName="address">
+            </mat-form-field>
+        </div>
+        <div formArrayName="orderDetails" *ngFor="let product of orderDetails.controls; let i=index;">
+            <div [formGroupName]="i">
+                <mat-form-field appearance="standard">
+                    <mat-label>Select Product</mat-label>
+                    <mat-select formControlName="productName">
+                      <mat-option value="one">First option</mat-option>
+                      <mat-option value="two">Second option</mat-option>
+                    </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+                <mat-label>Select Quantity</mat-label>
+                <mat-select formControlName="quantity">
+                  <mat-option value="" disabled selected>---</mat-option>
+                  <mat-option *ngFor="let q of quantities" [value]="q">
+                    {{q}}
+                  </mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-icon matSuffix (click)="createProduct()" *ngIf="orderDetails.controls.length <= 5">+</mat-icon>
+        <mat-icon matSuffix (click)="removeProduct(i)" *ngIf="orderDetails.controls.length > 1">-</mat-icon>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [disabled]="!addOrderForm.valid">Submit</button>
+</mat-dialog-actions>
